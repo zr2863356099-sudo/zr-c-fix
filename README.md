@@ -8,6 +8,8 @@
 
 ---
 
+> 📖 更完整的排查手册：[docs/使用手册.md](https://github.com/zr2863356099-sudo/zr-c-fix/blob/main/docs/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.md)
+
 ## 安装
 
 **在 VS Code 扩展面板搜索 `zr-c-fix`** 即可安装。
