@@ -6,6 +6,8 @@
 
 > **English** — *zr's C Helper*: an offline C correction & completion extension for VS Code. Mistakes show up as inline grey text and are fixed with <kbd>Tab</kbd>; everything else becomes a diagnostic or a quick-fix lightbulb. Parsing uses a bundled tree-sitter WASM grammar — no network, no compiler, no telemetry.
 
+📖 **[完整使用手册](docs/使用手册.md)** — 功能详解、安装步骤、12 个常见问题（没灰字怎么办、Tab 被占用、和 C/C++ 扩展共存、误报排查…）
+
 ## 安装
 
 **方式一：VSCodium / Gitpod / Code OSS 等基于 Open VSX 的编辑器**
