@@ -2,7 +2,7 @@
   "name": "zr-c-fix",
   "displayName": "zr 的 C 语言自动报错和补写小助手",
   "description": "面向 C 语言学习者的离线纠错与补全：灰色小字指出错误，Tab 一键修正。",
-  "version": "0.2.9",
+  "version": "0.3.0",
   "publisher": "zr2863356099-sudo",
   "license": "MIT",
   "repository": {
@@ -155,8 +155,7 @@
     "build": "node esbuild.mjs",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "watch": "node esbuild.mjs --watch",
-    "package": "npx --yes @vscode/vsce package --no-dependencies"
+    "watch": "node esbuild.mjs --watch"
   },
   "dependencies": {
     "web-tree-sitter": "0.20.8"
