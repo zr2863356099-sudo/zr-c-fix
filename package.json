@@ -1,0 +1,164 @@
+{
+  "name": "zr-c-fix",
+  "displayName": "zr 的 C 语言自动报错和补写小助手",
+  "description": "面向 C 语言学习者的离线纠错与补全：灰色小字指出错误，Tab 一键修正。",
+  "version": "0.2.9",
+  "publisher": "zr2863356099-sudo",
+  "license": "MIT",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters",
+    "Education"
+  ],
+  "keywords": [
+    "c",
+    "lint",
+    "linter",
+    "correction",
+    "completion",
+    "offline",
+    "tutor",
+    "beginner",
+    "student",
+    "competitive-programming",
+    "教学",
+    "oj"
+  ],
+  "activationEvents": [
+    "onLanguage:c"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "cfix.acceptCorrection",
+        "title": "cfix: 接受修正"
+      },
+      {
+        "command": "cfix.dismissCorrection",
+        "title": "cfix: 忽略修正"
+      },
+      {
+        "command": "cfix.checkFile",
+        "title": "cfix: 检查整个文件"
+      },
+      {
+        "command": "cfix.fixMissingBrace",
+        "title": "cfix: 补上缺失的 }"
+      },
+      {
+        "command": "cfix.dumpAnalysis",
+        "title": "cfix: 导出分析结果"
+      }
+    ],
+    "keybindings": [
+      {
+        "key": "tab",
+        "command": "cfix.acceptCorrection",
+        "when": "editorTextFocus && cfix.suggestionVisible"
+      },
+      {
+        "key": "escape",
+        "command": "cfix.dismissCorrection",
+        "when": "editorTextFocus && cfix.suggestionVisible"
+      }
+    ],
+    "configuration": {
+      "title": "cfix",
+      "properties": {
+        "cfix.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable cfix."
+        },
+        "cfix.preset": {
+          "type": "string",
+          "enum": [
+            "core",
+            "standard",
+            "all"
+          ],
+          "default": "core",
+          "description": "Rule preset."
+        },
+        "cfix.locale": {
+          "type": "string",
+          "enum": [
+            "zh",
+            "en"
+          ],
+          "default": "zh",
+          "description": "诊断消息语言"
+        },
+        "cfix.completion.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable stdio/string inline completion."
+        },
+        "cfix.correction.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable inline correction and diagnostic hints."
+        },
+        "cfix.correction.debounceMs": {
+          "type": "number",
+          "default": 300,
+          "minimum": 0,
+          "description": "Idle delay before checking the current line."
+        },
+        "cfix.diagnostics.includeFixable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Also list fixable issues (not just hints) in the Problems panel."
+        },
+        "cfix.stackLimitKB": {
+          "type": "number",
+          "default": 1024,
+          "minimum": 0,
+          "description": "Normal stack-frame threshold in KB. Recursive functions stay at 64 KB."
+        },
+        "cfix.reshowAfterMs": {
+          "type": "number",
+          "default": 0,
+          "minimum": 0,
+          "description": "Reserved cooldown for re-showing a suppressed hint. 0 means never repeat."
+        },
+        "cfix.rules": {
+          "type": "object",
+          "default": {},
+          "additionalProperties": {
+            "type": "string",
+            "enum": [
+              "off",
+              "warning",
+              "error"
+            ]
+          },
+          "description": "Per-rule overrides keyed by rule id, e.g. {\"shadowing\": \"off\"}."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node esbuild.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "watch": "node esbuild.mjs --watch",
+    "package": "npx --yes @vscode/vsce package --no-dependencies"
+  },
+  "dependencies": {
+    "web-tree-sitter": "0.20.8"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/vscode": "1.85.0",
+    "esbuild": "^0.28.2",
+    "tree-sitter-wasms": "^0.1.13",
+    "typescript": "^5.9.0",
+    "vitest": "^5.0.5"
+  }
+}

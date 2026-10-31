@@ -1,0 +1,10 @@
+# Ship only what the extension loads at runtime.
+**
+!package.json
+!README.md
+!CHANGELOG.md
+!LICENSE
+!icon.png
+!dist/extension.js
+!dist/tree-sitter.wasm
+!dist/tree-sitter-c.wasm

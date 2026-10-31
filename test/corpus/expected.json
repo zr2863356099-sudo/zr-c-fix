@@ -1,0 +1,65 @@
+{
+  "01-hello.c": [],
+  "02-scanf-sum.c": [],
+  "03-scanf-string.c": [],
+  "04-sieve.c": [
+    {
+      "ruleId": "unbalanced-braces",
+      "reason": "原文件缺最后一个 '}'（'{' 3 个、'}' 2 个），main 未闭合；真阳性。"
+    }
+  ],
+  "05-gpa.c": [],
+  "06-score-buckets.c": [
+    {
+      "ruleId": "stack-large-local",
+      "reason": "main 内四个 long long[100005] 局部数组合计约 3.2 MB，超过 1 MB 栈阈值；真阳性。"
+    }
+  ],
+  "07-bubble.c": [
+    {
+      "ruleId": "stack-vla",
+      "reason": "int arr[n] 的长度 n 来自运行时输入，是变长数组；真阳性。"
+    },
+    {
+      "ruleId": "shadowing",
+      "reason": "循环体内 int flag=0 遮蔽了外层声明的 int flag；真阳性。"
+    },
+    {
+      "ruleId": "assignment-in-condition",
+      "reason": "if (flag=0) 是赋值而非比较，应为 ==；真阳性。"
+    }
+  ],
+  "08-gcd.c": [
+    {
+      "ruleId": "nonvoid-missing-return",
+      "reason": "gcd 的 else 分支只递归调用而未 return，函数末尾路径没有返回值；真阳性。"
+    }
+  ],
+  "09-ackermann.c": [
+    {
+      "ruleId": "format-type-mismatch",
+      "reason": "printf(\"%d\", r) 中 r 是 long long，应改用 %lld；真阳性。"
+    }
+  ],
+  "10-vertical-add.c": [
+    {
+      "ruleId": "sprintf-unsafe",
+      "reason": "sprintf 写入定长 char str[32]，无法保证不溢出；真阳性。"
+    },
+    {
+      "ruleId": "missing-include",
+      "reason": "使用了 strlen 但只 include 了 stdio.h，缺 string.h；真阳性。"
+    }
+  ],
+  "11-palindrome.c": [],
+  "12-maze.c": [
+    {
+      "ruleId": "stack-vla",
+      "reason": "int mi[o][o] 两维长度都来自运行时输入，是变长数组；真阳性。"
+    },
+    {
+      "ruleId": "stack-vla",
+      "reason": "int bian[x] 的长度 x 来自运行时输入，是变长数组；真阳性。"
+    }
+  ]
+}
