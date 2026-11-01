@@ -8,8 +8,6 @@
 
 ---
 
-> 📖 更完整的排查手册：[docs/使用手册.md](https://github.com/zr2863356099-sudo/zr-c-fix/blob/main/docs/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.md)
-
 ## 安装
 
 **在 VS Code 扩展面板搜索 `zr-c-fix`** 即可安装。
@@ -39,7 +37,59 @@ code --install-extension zr-c-fix.vsix
 | 灰色小字 | 光标停在某行 0.3 秒 | 当前行有**可原地修好**的错误 |
 | 灯泡 `Ctrl+.` | 手动 | 修复要跨行（改声明、插 `#include`、补 `}`） |
 | 波浪线 + Problems | 自动 | 能指出问题但修法不确定 |
-| 补全模板 | 输入函数名前缀 | `pr` → `printf("%d\n", )` |
+| 智能补全 | 输入函数名 / 关键字前缀 | 按你**已定义的变量**自动填好参数 |
+
+### 智能补全：会读你的变量表
+
+补全不是固定模板，而是看着你**当前作用域已声明的变量**生成：
+
+```c
+int main(){
+    int a;
+    int b;
+    scan     ⏎ Tab →  scanf("%d%d", &a, &b);
+}
+```
+
+变量读过了就自动跳过：
+
+```c
+int main(){
+    int a, b, c;
+    scanf("%d", &a);        // a 已经读入
+    scan     ⏎ Tab →  scanf("%d%d", &b, &c);
+}
+```
+
+`printf` 只给**已经能用**的变量（初始化过、赋过值、或被 scanf 读过）：
+
+```c
+int a, b;
+scanf("%d%d", &a, &b);
+pri      ⏎ Tab →  printf("%d %d\n", a, b);
+```
+
+类型与格式符自动配对，包括最容易错的两处：
+
+| 类型 | `scanf` | `printf` |
+|---|---|---|
+| `int` | `%d` | `%d` |
+| `double` | **`%lf`** | **`%f`** |
+| `long long` | `%lld` | `%lld` |
+| `char s[10]` | `%9s`（宽度自动、**不加 `&`**） | `%s` |
+
+循环头也能按"最可能的边界变量"生成：
+
+```c
+int n;
+scanf("%d", &n);
+for      ⏎ Tab →  for (int i = 0; i < n; i++)     // i 已声明则不带 int
+while    ⏎ Tab →  while (T--)                      // 自动找递减计数的变量
+```
+
+边界变量的挑选依据：之前在别的 `for` 里当过上界 > 之前出现在 `while (x--)` 里 > 被 `scanf` 读过 > 名字像 `n`/`m`/`T`/`len` > 类型是 `int`。**当过循环变量 `i++` 的会被排除**。
+
+推断不出来时一律回退到普通模板，不会什么都不给。
 
 ### 灰字 + Tab
 
