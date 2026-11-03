@@ -2,7 +2,7 @@
   "name": "zr-c-fix",
   "displayName": "zr 的 C 语言自动报错和补写小助手",
   "description": "面向 C 语言学习者的离线纠错与补全：灰色小字指出错误，Tab 一键修正。",
-  "version": "0.4.2",
+  "version": "0.4.4",
   "publisher": "zr2863356099-sudo",
   "license": "MIT",
   "repository": {
