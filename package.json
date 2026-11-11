@@ -2,7 +2,7 @@
   "name": "zr-c-fix",
   "displayName": "zr 的 C 语言自动报错和补写小助手",
   "description": "面向 C 语言学习者的离线纠错与补全：灰色小字指出错误，Tab 一键修正。",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "publisher": "zr2863356099-sudo",
   "license": "MIT",
   "repository": {
@@ -61,6 +61,14 @@
       {
         "command": "cfix.dumpAnalysis",
         "title": "cfix: 导出分析结果"
+      },
+      {
+        "command": "cfix.disableSnippetSuggestions",
+        "title": "cfix: 禁用代码片段提示（减少与 C/C++ 扩展重复）"
+      },
+      {
+        "command": "cfix.restoreSnippetSuggestions",
+        "title": "cfix: 恢复代码片段提示"
       }
     ],
     "keybindings": [
