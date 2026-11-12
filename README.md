@@ -173,33 +173,11 @@ scanf("%d", &x);       // 灰色 & 出现在 x 前，按 Tab 后变成这样
 
 两边都「可见」时，谁拿到 Tab 取决于键位绑定的匹配顺序，结果不稳定。
 
-### 解决办法（任选其一）
+### 解决办法：关闭 AI 补全
 
-**方案 A —— 给本插件换个键（推荐，改动最小）**
+**方法一：只在 C 文件里关掉（推荐）**
 
-`Ctrl+Shift+P` → `Preferences: Open Keyboard Shortcuts (JSON)`，在 `keybindings.json` 里加：
-
-```json
-{
-  "key": "ctrl+enter",
-  "command": "cfix.acceptCorrection",
-  "when": "editorFocus && cfix.suggestionVisible"
-}
-```
-
-Tab 留给 AI，灰字出现时用 `Ctrl+Enter` 接受。
-
-**方案 B —— 让 AI 换键，Tab 留给本插件**
-
-```json
-{
-  "key": "alt+]",
-  "command": "editor.action.inlineSuggest.commit",
-  "when": "inlineSuggestionVisible"
-}
-```
-
-**方案 C —— 在 .c 文件里关掉 AI 补全**
+`Ctrl+Shift+P` → `Preferences: Open User Settings (JSON)`，加入：
 
 ```json
 {
@@ -210,19 +188,20 @@ Tab 留给 AI，灰字出现时用 `Ctrl+Enter` 接受。
 }
 ```
 
-**方案 D —— 用命令面板（永远不受键位影响）**
+其它语言照常使用 AI 补全，`.c` 文件交给本插件。
 
-`Ctrl+Shift+P` → `cfix: 接受修正`
+Codeium 用户把键名换成 `codeium.enableConfig`。
 
-**方案 E —— 使用 Vim 插件时**
+**方法二：直接停用 AI 扩展**
 
-Vim 插件会在插入模式下接管 Tab。建议把接受键改成 `Ctrl+Enter`（方案 A），或者只在非插入模式下用命令面板。
+`Ctrl+Shift+X` → 搜 `Copilot`（或你装的 AI 扩展）→ 齿轮图标 → **`Disable`**（或 `Disable (Workspace)` 只关当前项目）→ 点 `Restart Extensions`。
 
 ### 怎么确认是冲突
 
 灰字出现时按 `Tab`，如果**代码变成了别的内容**（不是灰字显示的那个），就是被别的扩展抢了键。把那个扩展临时禁用，再按一次就知道是谁。
 
-> 本插件不会关闭你的 AI 补全，两者可以共存，只是 `Tab` 的归属需要你选一个。
+> 本插件不会主动关闭你的 AI 补全，两者可以共存——但 `Tab` 只有一个，`.c` 文件里需要你选一边。
+
 
 ---
 
